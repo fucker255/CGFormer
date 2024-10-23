@@ -206,6 +206,6 @@ class GeometryDepth_Net(BaseModule):
         stereo_volume = self.stereo_volume_encoder(stereo_volume)
         stereo_volume = self.get_depth_dist(stereo_volume)
 
-        depth_volume = self.depth_aggregation(stereo_volume, mono_volume)
+        depth_volume = self.depth_aggregation(stereo_volume, mono_volume)#对离线双目深度和单目深度进行融合，感觉不太合理
         depth_volume = self.get_depth_dist(depth_volume)
         return img_feat.view(B, N, -1, H, W), depth_volume

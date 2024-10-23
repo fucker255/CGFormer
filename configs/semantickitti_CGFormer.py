@@ -1,7 +1,7 @@
 data_root = './dataset/semantickitti'
 ann_file = './dataset/semantickitti/labels'
 stereo_depth_root = './dataset/semantickitti/depth'
-camera_used = ['left']
+camera_used = ['left'] #只读了左图像，单目，双目深度用现成网络离线计算
 # camera_used = ['left']
 
 dataset_type = 'SemanticKITTIDataset'
@@ -63,7 +63,7 @@ data_config={
 train_pipeline = [
     dict(type='LoadMultiViewImageFromFiles_SemanticKitti', data_config=data_config, load_stereo_depth=True,
          is_train=True, color_jitter=(0.4, 0.4, 0.4)),
-    dict(type='CreateDepthFromLiDAR', data_root=data_root, dataset='kitti'),
+    dict(type='CreateDepthFromLiDAR', data_root=data_root, dataset='kitti'),# Lidar转换的深度图用于监督单目深度网络
     dict(type='LoadSemKittiAnnotation', bda_aug_conf=bda_aug_conf, apply_bda=False,
             is_train=True, point_cloud_range=point_cloud_range),
     dict(type='CollectData', keys=['img_inputs', 'gt_occ'], 

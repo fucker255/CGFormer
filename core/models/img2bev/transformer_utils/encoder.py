@@ -153,7 +153,7 @@ class VoxFormerEncoder(TransformerLayerSequence):
         # [D, B, num_cam, num_query, 2]
         reference_points_cam[..., 0] /= ogfW
         reference_points_cam[..., 1] /= ogfH
-        volume_mask = (points_d > eps)
+        volume_mask = (points_d > eps) #只有深度值大于 1e-5 的位置才会被标记为 True
         # [D, B, num_cam, num_query, 1]
         volume_mask = (volume_mask & (reference_points_cam[..., 0:1] > eps)
                 & (reference_points_cam[..., 0:1] < (1.0 - eps))

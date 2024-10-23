@@ -112,7 +112,7 @@ class PerceptionTransformer(BaseModule):
         bev_queries = bev_queries.unsqueeze(1).repeat(1, bs, 1) #  #[N, 1, 64]
         bev_pos = bev_pos.flatten(2).permute(2, 0, 1) # [N, 1, 64]
 
-        unmasked_bev_queries = bev_queries[vox_coords[unmasked_idx, 3], :, :]
+        unmasked_bev_queries = bev_queries[vox_coords[unmasked_idx, 3], :, :]# [unmasked_idx, 3]取出未被mask的voxel的索引
         unmasked_bev_bev_pos = bev_pos[vox_coords[unmasked_idx, 3], :, :]
 
         unmasked_ref_3d = ref_3d[vox_coords[unmasked_idx, 3], :]
